@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dagon-club.com</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .banner {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            font-size: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .standard {
+            color: #fff;
+            background-color: #007bff;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .premium {
+            color: #fff;
+            background-color: #FFD700;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .PS5 {
+            color: #fff;
+            background-color: #8b929a;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .BootCamp {
+            color: #fff;
+            background-color: #2599a4;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .standard:hover,
+        .premium:hover,
+        .PS5:hover,
+        .BootCamp:hover {
+            transform: scale(1.05);
+        }
+
+        .icon {
+            width: 30px;
+            height: auto;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 50%;
+        }
+
+        .slider {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .discount-info {
+            width: 45%;
+            padding: 10px;
+            border-left: 1px solid #ddd;
+        }
+
+        .discount-info h3 {
+            margin-top: 0;
+        }
+
+        .discount-info p {
+            margin: 5px 0;
+        }
+
+        .total-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: red;
+        }
+
+        .discounted-price {
+            color: green;
+            font-weight: bold;
+        }
+
+        .additional-info {
+            color: green;
+            margin-top: 5px;
+        }
+
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .button-select {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .button-cancel {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .selection-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px;
+        }
+
+        .selection-item {
+            width: 60px;
+            height: 60px;
+            background-color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .selection-item:hover {
+            background-color: #aaa;
+        }
+
+        .selection-item.occupied {
+            background-color: red;
+            cursor: not-allowed;
+        }
+
+        .tooltip {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .payment-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .payment-input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="banner">
+            <img src="банер.png" alt="Баннер" width="100%">
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Цена</th>
+                    <th>Преимущества</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="standard" onclick="openModal('standard', 600)">
+                    <td><img src="icon_standard.png" alt="" class="icon">Стандарт</td>
+                    <td>600 ₸/час</td>
+                    <td>Доступ к основному залу</td>
+                </tr>
+                <tr class="premium" onclick="openModal('premium', 800)">
+                    <td><img src="icon_premium.png" alt="" class="icon">VIP</td>
+                    <td>800 ₸/час</td>
+                    <td>Доступ к VIP залу</td>
+                </tr>
+                <tr class="PS5" onclick="openModal('PS5', 900)">
+                    <td><img src="icon_PS5.png" alt="" class="icon">PS5 Зал</td>
+                    <td>900 ₸/час</td>
+                    <td>Доступ к PS5</td>
+                </tr>
+                <tr class="BootCamp" onclick="openModal('BootCamp', 1000)">
+                    <td><img src="icon_BootCamp.png" alt="" class="icon">BootCamp</td>
+                    <td>1000 ₸/час</td>
+                    <td>Доступ к Кибер-Арене</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="slider-container">
+                <h2 id="modal-title"></h2>
+                <p id="modal-price"></p>
+                <input type="range" id="hours" min="1" max="24" value="1" class="slider" oninput="calculateTotal()">
+                <span id="hours-value">1</span> час(ов)
+                <p class="total-container">
+                    Сумма: <span id="total"></span> ₸
+                    <span id="additional-info" class="additional-info"></span>
+                </p>
+            </div>
+            <div class="discount-info">
+                <h3>Скидки:</h3>
+                <p>От 3 часов: 1 час в подарок</p>
+                <p>От 12 часов: бесплатные закуски</p>
+                <p>От 24 часов: скидка 25%</p>
+            </div>
+            <div class="button-container">
+                <button class="button button-select" onclick="selectPlace()">Выбрать место</button>
+                <button class="button button-cancel" onclick="closeModal()">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="selectionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSelectionModal()">&times;</span>
+            <div class="selection-container" id="selection-container"></div>
+            <div id="tooltip" class="tooltip"></div>
+        </div>
+    </div>
+
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDetailsModal()">&times;</span>
+            <div id="computer-details"></div>
+            <div class="payment-container">
+                <label for="start-hour">Выберите час прибытия:</label>
+                <input type="number" id="start-hour" min="0" max="23" value="0" class="payment-input" oninput="updateEndHour()">
+                <p>Вы прибудете в: <span id="start-time">0:00</span></p>
+                <p>Вы уйдете в: <span id="end-time">1:00</span></p>
+                <p>Итоговая цена: <span id="final-total"></span> ₸</p>
+                <p id="final-additional-info" class="additional-info"></p>
+                <div class="button-container">
+                    <button class="button button-select" onclick="payOnSite()">Оплатить на месте</button>
+                    <button class="button button-select" onclick="payOnline()">Оплатить онлайн</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePaymentModal()">&times;</span>
+            <div class="payment-container">
+                <h2>Оплата онлайн</h2>
+                <input type="text" class="payment-input" placeholder="Номер карты">
+                <input type="text" class="payment-input" placeholder="Срок действия">
+                <input type="text" class="payment-input" placeholder="CVV">
+                <button class="button button-select">Оплатить</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentTariff = '';
+        let currentPrice = 0;
+        let selectedHours = 1;
+        let computerDetails = '';
+
+        function openModal(tariff, price) {
+            currentTariff = tariff;
+            currentPrice = price;
+            document.getElementById('modal-title').innerText = `Тариф: ${tariff}`;
+            document.getElementById('modal-price').innerText = `Цена: ${price} ₸/час`;
+            document.getElementById('hours').value = 1;
+            document.getElementById('hours-value').innerText = 1;
+            document.getElementById('total').innerHTML = price;
+            document.getElementById('additional-info').innerHTML = '';
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+
+        function calculateTotal() {
+            const hours = document.getElementById('hours').value;
+            selectedHours = hours;
+            let total = hours * currentPrice;
+            let additionalInfo = '';
+
+            // Применение скидок
+            if (hours >= 24) {
+                const discount = (total * 0.75).toFixed(2);
+                additionalInfo = `<span class="original-price">${total}</span> <span class="discounted-price">${discount}</span> ₸`;
+                total = discount;
+                additionalInfo += '<br>+ бесплатные закуски';
+            } else {
+                if (hours >= 12) {
+                    additionalInfo += '<br>+ бесплатные закуски';
+                }
+                if (hours >= 3) {
+                    total = (hours - 1) * currentPrice;
+                    additionalInfo += '<br>+ 1 час в подарок';
+                }
+            }
+
+            document.getElementById('hours-value').innerText = hours;
+            document.getElementById('total').innerHTML = total;
+            document.getElementById('additional-info').innerHTML = additionalInfo;
+        }
+
+        function selectPlace() {
+            document.getElementById('selection-container').innerHTML = '';
+            const selectionModal = document.getElementById('selectionModal');
+            const selectionContainer = document.getElementById('selection-container');
+
+            let totalComputers = 0;
+            let computerDetails = '';
+
+            switch (currentTariff) {
+                case 'standard':
+                    totalComputers = 20;
+                    computerDetails = 'RTX 4060, AMD Ryzen 7 5800X3D';
+                    break;
+                case 'premium':
+                    totalComputers = 8;
+                    computerDetails = 'RTX 4080, AMD Ryzen 9 7950X3D';
+                    break;
+                case 'BootCamp':
+                    totalComputers = 10;
+                    computerDetails = 'RTX 4080, AMD Ryzen 9 7950X3D';
+                    break;
+            }
+
+            for (let i = 1; i <= totalComputers; i++) {
+                const div = document.createElement('div');
+                div.classList.add('selection-item');
+                if (Math.random() > 0.7) {
+                    div.classList.add('occupied');
+                }
+                div.dataset.details = `Компьютер ${i}, ${computerDetails}`;
+                div.addEventListener('mouseover', showTooltip);
+                div.addEventListener('mouseout', hideTooltip);
+                if (!div.classList.contains('occupied')) {
+                    div.addEventListener('click', () => selectComputer(i, computerDetails));
+                }
+                selectionContainer.appendChild(div);
+            }
+
+            selectionModal.style.display = 'block';
+        }
+
+        function closeSelectionModal() {
+            document.getElementById('selectionModal').style.display = 'none';
+        }
+
+        function showTooltip(event) {
+            const tooltip = document.getElementById('tooltip');
+            if (event.target.classList.contains('occupied')) {
+                tooltip.innerHTML = 'Занято';
+            } else {
+                tooltip.innerHTML = event.target.dataset.details;
+            }
+            tooltip.style.display = 'block';
+            tooltip.style.left = event.pageX + 10 + 'px';
+            tooltip.style.top = event.pageY + 10 + 'px';
+        }
+
+        function hideTooltip() {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.style.display = 'none';
+        }
+
+        function selectComputer(number, details) {
+            computerDetails = `Компьютер ${number}, ${details}`;
+            document.getElementById('computer-details').innerText = computerDetails;
+            document.getElementById('detailsModal').style.display = 'block';
+            updateEndHour();
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').style.display = 'none';
+        }
+
+        function updateEndHour() {
+            const startHour = parseInt(document.getElementById('start-hour').value);
+            const endHour = (startHour + parseInt(selectedHours)) % 24;
+            document.getElementById('start-time').innerText = `${startHour}:00`;
+            document.getElementById('end-time').innerText = `${endHour}:00`;
+            document.getElementById('final-total').innerText = document.getElementById('total').innerText;
+            document.getElementById('final-additional-info').innerHTML = document.getElementById('additional-info').innerHTML;
+        }
+
+        function payOnSite() {
+            alert('Вы выбрали оплату на месте.');
+            // Логика оплаты на месте
+        }
+
+        function payOnline() {
+            document.getElementById('paymentModal').style.display = 'block';
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('myModal')) {
+                closeModal();
+            }
+            if (event.target == document.getElementById('selectionModal')) {
+                closeSelectionModal();
+            }
+            if (event.target == document.getElementById('detailsModal')) {
+                closeDetailsModal();
+            }
+            if (event.target == document.getElementById('paymentModal')) {
+                closePaymentModal();
+            }
+        }
+    </script>
+</body>
+
+</html>
